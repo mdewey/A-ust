@@ -1,0 +1,32 @@
+﻿@model A_ust.Models.Assumptions
+
+@{
+    ViewBag.Title = "Delete";
+}
+
+<h2>Delete</h2>
+
+<h3>Are you sure you want to delete this?</h3>
+<fieldset>
+    <legend>Assumptions</legend>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.Assumption)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Assumption)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.TargetDate)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.TargetDate)
+    </div>
+</fieldset>
+@using (Html.BeginForm()) {
+    <p>
+        <input type="submit" value="Delete" /> |
+        @Html.ActionLink("Back to List", "Index")
+    </p>
+}

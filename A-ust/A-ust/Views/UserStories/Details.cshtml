@@ -1,0 +1,57 @@
+﻿@model A_ust.Models.UserStories
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<fieldset>
+    <legend>UserStories</legend>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.Name)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Name)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.Description)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Description)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.TargetDate)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.TargetDate)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.Actor)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Actor)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.Act)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Act)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.Outcome)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Outcome)
+    </div>
+</fieldset>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id=Model.ID }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>
