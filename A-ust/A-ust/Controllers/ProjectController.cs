@@ -6,19 +6,18 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using A_ust.Models;
+using A_ust.Workers;
 
 namespace A_ust.Controllers
 {
     public class ProjectController : Controller
     {
-        private AustContext db = new AustContext();
-
         //
         // GET: /Project/
 
         public ActionResult Index()
         {
-            return View(db.Projects.ToList());
+            return View((new ProjectWorker()).GetAllProject());
         }
 
         //
@@ -26,7 +25,11 @@ namespace A_ust.Controllers
 
         public ActionResult Details(int id = 0)
         {
-            Projects projects = db.Projects.Find(id);
+            Projects projects;
+            using (ProjectWorker pw = new ProjectWorker())
+            {
+                projects = pw.GetProject(id);
+            }
             if (projects == null)
             {
                 return HttpNotFound();
@@ -50,11 +53,11 @@ namespace A_ust.Controllers
         {
             if (ModelState.IsValid)
             {
-                db.Projects.Add(projects);
-                db.SaveChanges();
-                return RedirectToAction("Index");
+                if ((new ProjectWorker()).AddProject(projects))
+                    return RedirectToAction("Index");
+                else
+                    return HttpNotFound();
             }
-
             return View(projects);
         }
 
@@ -63,7 +66,7 @@ namespace A_ust.Controllers
 
         public ActionResult Edit(int id = 0)
         {
-            Projects projects = db.Projects.Find(id);
+            Projects projects = (new ProjectWorker()).GetProject(id);
             if (projects == null)
             {
                 return HttpNotFound();
@@ -79,9 +82,10 @@ namespace A_ust.Controllers
         {
             if (ModelState.IsValid)
             {
-                db.Entry(projects).State = EntityState.Modified;
-                db.SaveChanges();
-                return RedirectToAction("Index");
+                if ((new ProjectWorker()).UpdateProject(projects))
+                    return RedirectToAction("Index");
+                else
+                    return HttpNotFound();
             }
             return View(projects);
         }
@@ -91,7 +95,7 @@ namespace A_ust.Controllers
 
         public ActionResult Delete(int id = 0)
         {
-            Projects projects = db.Projects.Find(id);
+            Projects projects = (new ProjectWorker()).GetProject(id);
             if (projects == null)
             {
                 return HttpNotFound();
@@ -105,16 +109,12 @@ namespace A_ust.Controllers
         [HttpPost, ActionName("Delete")]
         public ActionResult DeleteConfirmed(int id)
         {
-            Projects projects = db.Projects.Find(id);
-            db.Projects.Remove(projects);
-            db.SaveChanges();
-            return RedirectToAction("Index");
+            if ((new ProjectWorker()).DeleteProject(id))
+                return RedirectToAction("Index");
+            else
+                return HttpNotFound();
         }
 
-        protected override void Dispose(bool disposing)
-        {
-            db.Dispose();
-            base.Dispose(disposing);
-        }
+
     }
 }
