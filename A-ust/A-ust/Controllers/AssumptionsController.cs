@@ -6,19 +6,20 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using A_ust.Models;
+using A_ust.Workers;
 
 namespace A_ust.Controllers
 {
     public class AssumptionsController : Controller
     {
-        private AustContext db = new AustContext();
+
 
         //
         // GET: /Assumptions/
 
         public ActionResult Index()
         {
-            return View(db.Assumptions.ToList());
+            return View((new AssumptionWorker()).GetAllAssumptions());
         }
 
         //
@@ -26,7 +27,11 @@ namespace A_ust.Controllers
 
         public ActionResult Details(int id = 0)
         {
-            Assumptions assumptions = db.Assumptions.Find(id);
+            Assumptions assumptions;
+            using (AssumptionWorker aw = new AssumptionWorker())
+            {
+                assumptions = aw.GetAssumption(id);
+            }
             if (assumptions == null)
             {
                 return HttpNotFound();
@@ -50,9 +55,10 @@ namespace A_ust.Controllers
         {
             if (ModelState.IsValid)
             {
-                db.Assumptions.Add(assumptions);
-                db.SaveChanges();
-                return RedirectToAction("Index");
+                if ((new AssumptionWorker()).AddAssumption(assumptions))
+                    return RedirectToAction("Index");
+                else
+                    return HttpNotFound();
             }
 
             return View(assumptions);
@@ -63,14 +69,13 @@ namespace A_ust.Controllers
 
         public ActionResult Edit(int id = 0)
         {
-            Assumptions assumptions = db.Assumptions.Find(id);
+            Assumptions assumptions = (new AssumptionWorker()).GetAssumption(id);
             if (assumptions == null)
             {
                 return HttpNotFound();
             }
             return View(assumptions);
         }
-
         //
         // POST: /Assumptions/Edit/5
 
@@ -79,9 +84,10 @@ namespace A_ust.Controllers
         {
             if (ModelState.IsValid)
             {
-                db.Entry(assumptions).State = EntityState.Modified;
-                db.SaveChanges();
-                return RedirectToAction("Index");
+                if ((new AssumptionWorker()).UpdateAssumption(assumptions))
+                    return RedirectToAction("Index");
+                else
+                    return HttpNotFound();
             }
             return View(assumptions);
         }
@@ -91,7 +97,7 @@ namespace A_ust.Controllers
 
         public ActionResult Delete(int id = 0)
         {
-            Assumptions assumptions = db.Assumptions.Find(id);
+            Assumptions assumptions = (new AssumptionWorker()).GetAssumption(id);
             if (assumptions == null)
             {
                 return HttpNotFound();
@@ -105,16 +111,10 @@ namespace A_ust.Controllers
         [HttpPost, ActionName("Delete")]
         public ActionResult DeleteConfirmed(int id)
         {
-            Assumptions assumptions = db.Assumptions.Find(id);
-            db.Assumptions.Remove(assumptions);
-            db.SaveChanges();
-            return RedirectToAction("Index");
-        }
-
-        protected override void Dispose(bool disposing)
-        {
-            db.Dispose();
-            base.Dispose(disposing);
+            if ((new AssumptionWorker()).DeleteAssumption(id))
+                return RedirectToAction("Index");
+            else
+                return HttpNotFound();
         }
     }
 }
