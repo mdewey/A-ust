@@ -23,6 +23,9 @@ namespace A_ust.Models
         [MinLength(2)]
         [MaxLength(50)]
         public string lastName { get; set; }
+        [Required]
+        [MinLength(2)]
+        [MaxLength(50)]
         public string UserName { get; set; }
 
     }

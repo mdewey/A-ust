@@ -1,9 +1,32 @@
 ﻿@{
     ViewBag.Title = "Home Page";
 }
-@section featured {
-    <section class="featured">
-    PENIS!
-    </section>
-}
-VAGINA!
+
+<div>
+    <div style="float: left; width: 45%; font-size: 2em;">
+
+        <h3>welcome.</h3>
+        <p>
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam luctus lectus eu magna laoreet iaculis. Mauris feugiat pretium dui ut posuere. Praesent ullamcorper malesuada metus a facilisis. Nam aliquet vulputate augue sit amet congue. Proin scelerisque pellentesque tincidunt. 
+        </p>
+    </div>
+    <div style="float: left; width: 45%; font-size: 2em; padding-left:2em;">
+        <h3>let's get started.</h3>
+        <div>
+                 Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam luctus lectus eu magna laoreet iaculis. Mauris feugiat pretium d
+            
+        </div>
+        <br />
+        <div style="width:100%;">
+            @Html.ActionLink("Register", "Register", "Account", routeValues: null, htmlAttributes: new { id = "registerLink", @class = "ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only ui-state-hover", style = "width:100%;" } )
+        </div>
+        <br />
+        <div style="text-align:center;"> 
+            -OR-
+        </div><br />
+        <div>
+            @Html.ActionLink("Log in", "Login", "Account", routeValues: null, htmlAttributes: new { id = "loginLink", @class = "ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only ui-state-hover", style = "width:100%;height:"  })
+        </div>
+    </div>
+
+</div>
