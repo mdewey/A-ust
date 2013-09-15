@@ -6,7 +6,8 @@
 
 <h2>Create</h2>
 
-@using (Html.BeginForm()) {
+@using (Html.BeginForm())
+{
     @Html.ValidationSummary(true)
 
     <fieldset>
@@ -60,6 +61,7 @@
             @Html.ValidationMessageFor(model => model.Outcome)
         </div>
 
+        <input data-val="true" data-val-number="The field AssumptionId must be a number." data-val-required="The AssumptionId field is required." id="AssumptionId" name="AssumptionId" type="hidden" value="@ViewBag.AssumptionId" />
         <p>
             <input type="submit" value="Create" />
         </p>

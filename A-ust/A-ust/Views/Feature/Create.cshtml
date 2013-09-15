@@ -36,6 +36,8 @@
             @Html.ValidationMessageFor(model => model.TargetDate)
         </div>
 
+        @Html.HiddenFor(model => model.ProjectId, new { value = ViewBag.ProjectId })
+        
         <p>
             <input type="submit" value="Create" />
         </p>

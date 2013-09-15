@@ -17,7 +17,7 @@ namespace A_ust.Controllers
 
         public ActionResult Index()
         {
-            return View((new ProjectWorker()).GetAllProject());
+            return View((new ProjectWorker(new AustContext())).GetAllProject());
         }
 
         //
@@ -25,16 +25,18 @@ namespace A_ust.Controllers
 
         public ActionResult Details(int id = 0)
         {
-            Projects projects;
-            using (ProjectWorker pw = new ProjectWorker())
+            using (ProjectWorker pw = new ProjectWorker(new AustContext()))
             {
+                Projects projects;
+
                 projects = pw.GetProject(id);
+
+                if (projects == null)
+                {
+                    return HttpNotFound();
+                }
+                return View(projects);
             }
-            if (projects == null)
-            {
-                return HttpNotFound();
-            }
-            return View(projects);
         }
 
         //
@@ -53,7 +55,7 @@ namespace A_ust.Controllers
         {
             if (ModelState.IsValid)
             {
-                if ((new ProjectWorker()).AddProject(projects))
+                if ((new ProjectWorker(new AustContext())).AddProject(projects))
                     return RedirectToAction("Index");
                 else
                     return HttpNotFound();
@@ -66,7 +68,7 @@ namespace A_ust.Controllers
 
         public ActionResult Edit(int id = 0)
         {
-            Projects projects = (new ProjectWorker()).GetProject(id);
+            Projects projects = (new ProjectWorker(new AustContext())).GetProject(id);
             if (projects == null)
             {
                 return HttpNotFound();
@@ -82,7 +84,7 @@ namespace A_ust.Controllers
         {
             if (ModelState.IsValid)
             {
-                if ((new ProjectWorker()).UpdateProject(projects))
+                if ((new ProjectWorker(new AustContext())).UpdateProject(projects))
                     return RedirectToAction("Index");
                 else
                     return HttpNotFound();
@@ -95,7 +97,7 @@ namespace A_ust.Controllers
 
         public ActionResult Delete(int id = 0)
         {
-            Projects projects = (new ProjectWorker()).GetProject(id);
+            Projects projects = (new ProjectWorker(new AustContext())).GetProject(id);
             if (projects == null)
             {
                 return HttpNotFound();
@@ -109,7 +111,7 @@ namespace A_ust.Controllers
         [HttpPost, ActionName("Delete")]
         public ActionResult DeleteConfirmed(int id)
         {
-            if ((new ProjectWorker()).DeleteProject(id))
+            if ((new ProjectWorker(new AustContext())).DeleteProject(id))
                 return RedirectToAction("Index");
             else
                 return HttpNotFound();

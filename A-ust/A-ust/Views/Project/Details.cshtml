@@ -30,6 +30,15 @@
         @Html.DisplayFor(model => model.TargetDate)
     </div>
 </fieldset>
+@Html.ActionLink("Add Feature", "Create", "Feature",new {ProjectId = Model.ID}, null)
+
+<h2>Features</h2>
+<ul>
+@foreach (var features in Model.Features)
+{
+    <li>@Html.ActionLink(features.Name, "Details", "Feature", new { id = features.ID }, null)</li>
+}
+    </ul>
 <p>
     @Html.ActionLink("Edit", "Edit", new { id=Model.ID }) |
     @Html.ActionLink("Back to List", "Index")

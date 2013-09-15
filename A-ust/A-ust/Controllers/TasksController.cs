@@ -37,8 +37,9 @@ namespace A_ust.Controllers
         //
         // GET: /Tasks/Create
 
-        public ActionResult Create()
+        public ActionResult Create(int id)
         {
+            ViewBag.UserStoryId = id;
             return View();
         }
 

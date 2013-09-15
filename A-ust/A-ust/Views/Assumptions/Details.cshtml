@@ -27,3 +27,13 @@
     @Html.ActionLink("Edit", "Edit", new { id=Model.ID }) |
     @Html.ActionLink("Back to List", "Index")
 </p>
+
+
+<h2>Add User Stories</h2>
+@Html.ActionLink("Add User Story", "Create", "UserStories",new {Id = Model.ID}, null)
+<ul>
+    @foreach (var item in Model.UserStories)
+    {
+        <li>@Html.ActionLink(item.Name, "Details", "UserStories", new {id = item.ID}, null)</li>
+    }
+</ul>

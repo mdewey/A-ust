@@ -36,6 +36,9 @@
             @Html.ValidationMessageFor(model => model.TargetDate)
         </div>
 
+          <input data-val="true" data-val-number="The field UserStoryId must be a number." data-val-required="The UserStoryId field is required." id="UserStoryId" name="UserStoryId" type="hidden" value="@ViewBag.UserStoryId" />
+
+
         <p>
             <input type="submit" value="Create" />
         </p>

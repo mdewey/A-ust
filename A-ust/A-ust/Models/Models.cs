@@ -25,8 +25,7 @@ namespace A_ust.Models
             get { return _features ?? (_features = new List<Features>()); }
             set { _features = value; }
         }
-
-
+        //TODO: add value prop feilds
         public int Progress()
         {
             return 0;
@@ -51,6 +50,9 @@ namespace A_ust.Models
         public DateTime? TargetDate { get; set; }
         public Status.GenericStates status { get; set; }
         public Priority.GenericPriority priority { get; set; }
+        public int ProjectId { get; set; }
+        [ForeignKey("ProjectId")]
+        public Projects Project { get; set; }
         private ICollection<Assumptions> _assumptions;
         public virtual ICollection<Assumptions> Assumptions
         {
@@ -80,7 +82,12 @@ namespace A_ust.Models
         public Status.GenericStates status { get; set; }
         public Priority.GenericPriority priority { get; set; }
         private ICollection<UserStories> _userStories;
-        public virtual ICollection<UserStories> RequireLearningObjects
+        
+        public int FeatureId { get; set; }
+        [ForeignKey("FeatureId")]
+        public Features Feature { get; set; }
+
+        public virtual ICollection<UserStories> UserStories
         {
             get { return _userStories ?? (_userStories = new List<UserStories>()); }
             set { _userStories = value; }
@@ -108,6 +115,11 @@ namespace A_ust.Models
         public DateTime? TargetDate { get; set; }
         public Priority.GenericPriority priority { get; set; }
         public Status.GenericStates status { get; set; }
+
+        public int AssumptionId { get; set; }
+        [ForeignKey("AssumptionId ")]
+        public Assumptions Assumption { get; set; }
+
         [Required]
         public String Actor { get; set; }
         [Required]
@@ -143,6 +155,11 @@ namespace A_ust.Models
         public DateTime? TargetDate { get; set; }
         public Priority.GenericPriority priority { get; set; }
         public Status.GenericStates status { get; set; }
+
+        public int UserStoryId { get; set; }
+        [ForeignKey("UserStoryId ")]
+        public UserStories UserStory { get; set; }
+
         public int Progress()
         {
             return 0;

@@ -37,8 +37,9 @@ namespace A_ust.Controllers
         //
         // GET: /Feature/Create
 
-        public ActionResult Create()
+        public ActionResult Create(int ProjectId)
         {
+            ViewBag.ProjectId = ProjectId;
             return View();
         }
 

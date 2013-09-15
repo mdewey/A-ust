@@ -55,3 +55,14 @@
     @Html.ActionLink("Edit", "Edit", new { id=Model.ID }) |
     @Html.ActionLink("Back to List", "Index")
 </p>
+
+
+
+<h2>Tasks</h2>
+@Html.ActionLink("Add Tasks", "Create", "Tasks",new {Id = Model.ID}, null)
+<ul>
+    @foreach (var item in Model.Tasks)
+    {
+        <li>@Html.ActionLink(item.Name, "Details", "Tasks", new {id = item.ID}, null)</li>
+    }
+</ul>

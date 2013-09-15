@@ -19,7 +19,7 @@ namespace A_ust.Controllers
 
         public ActionResult Index()
         {
-            return View((new AssumptionWorker()).GetAllAssumptions());
+            return View((new AssumptionWorker(new AustContext())).GetAllAssumptions());
         }
 
         //
@@ -28,7 +28,7 @@ namespace A_ust.Controllers
         public ActionResult Details(int id = 0)
         {
             Assumptions assumptions;
-            using (AssumptionWorker aw = new AssumptionWorker())
+            using (AssumptionWorker aw = new AssumptionWorker(new AustContext()))
             {
                 assumptions = aw.GetAssumption(id);
             }
@@ -42,8 +42,9 @@ namespace A_ust.Controllers
         //
         // GET: /Assumptions/Create
 
-        public ActionResult Create()
+        public ActionResult Create(int FeatureId)
         {
+            ViewBag.FeatureId = FeatureId;
             return View();
         }
 
@@ -55,7 +56,7 @@ namespace A_ust.Controllers
         {
             if (ModelState.IsValid)
             {
-                if ((new AssumptionWorker()).AddAssumption(assumptions))
+                if ((new AssumptionWorker(new AustContext())).AddAssumption(assumptions))
                     return RedirectToAction("Index");
                 else
                     return HttpNotFound();
@@ -69,7 +70,7 @@ namespace A_ust.Controllers
 
         public ActionResult Edit(int id = 0)
         {
-            Assumptions assumptions = (new AssumptionWorker()).GetAssumption(id);
+            Assumptions assumptions = (new AssumptionWorker(new AustContext())).GetAssumption(id);
             if (assumptions == null)
             {
                 return HttpNotFound();
@@ -84,7 +85,7 @@ namespace A_ust.Controllers
         {
             if (ModelState.IsValid)
             {
-                if ((new AssumptionWorker()).UpdateAssumption(assumptions))
+                if ((new AssumptionWorker(new AustContext())).UpdateAssumption(assumptions))
                     return RedirectToAction("Index");
                 else
                     return HttpNotFound();
@@ -97,7 +98,7 @@ namespace A_ust.Controllers
 
         public ActionResult Delete(int id = 0)
         {
-            Assumptions assumptions = (new AssumptionWorker()).GetAssumption(id);
+            Assumptions assumptions = (new AssumptionWorker(new AustContext())).GetAssumption(id);
             if (assumptions == null)
             {
                 return HttpNotFound();
@@ -111,7 +112,7 @@ namespace A_ust.Controllers
         [HttpPost, ActionName("Delete")]
         public ActionResult DeleteConfirmed(int id)
         {
-            if ((new AssumptionWorker()).DeleteAssumption(id))
+            if ((new AssumptionWorker(new AustContext())).DeleteAssumption(id))
                 return RedirectToAction("Index");
             else
                 return HttpNotFound();

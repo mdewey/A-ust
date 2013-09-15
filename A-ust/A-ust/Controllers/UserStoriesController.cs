@@ -37,8 +37,9 @@ namespace A_ust.Controllers
         //
         // GET: /UserStories/Create
 
-        public ActionResult Create()
+        public ActionResult Create(int id)
         {
+            ViewBag.AssumptionId = id;
             return View();
         }
 
