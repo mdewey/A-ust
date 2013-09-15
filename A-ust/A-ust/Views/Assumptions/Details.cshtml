@@ -1,0 +1,39 @@
+﻿@model A_ust.Models.Assumptions
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<fieldset>
+    <legend>Assumptions</legend>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.Assumption)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Assumption)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.TargetDate)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.TargetDate)
+    </div>
+</fieldset>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id=Model.ID }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>
+
+
+<h2>Add User Stories</h2>
+@Html.ActionLink("Add User Story", "Create", "UserStories",new {Id = Model.ID}, null)
+<ul>
+    @foreach (var item in Model.UserStories)
+    {
+        <li>@Html.ActionLink(item.Name, "Details", "UserStories", new {id = item.ID}, null)</li>
+    }
+</ul>

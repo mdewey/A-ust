@@ -1,0 +1,17 @@
+﻿<nav>
+    <ul id="menu">
+        <li>@Html.ActionLink("Home", "Index", "Home")</li>
+        <li>@Html.ActionLink("About", "About", "Home")</li>
+        <br />
+        @if (WebSecurity.IsAuthenticated)
+        { 
+            <li>@Html.ActionLink("Projects", "Index", "Project")</li>
+            <li>@Html.ActionLink("Features", "Index", "Feature")</li>
+            <li>@Html.ActionLink("Assumptions", "Index", "Assumptions")</li>
+            <li>@Html.ActionLink("User Stories", "Index", "UserStories")</li>
+            <li>@Html.ActionLink("Tasks", "Index", "Tasks")</li>
+        }
+
+
+    </ul>
+</nav>
